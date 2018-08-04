@@ -904,7 +904,7 @@ class LogicCell:
             if fields[-1].startswith(prefix):
                 fields[-1] = fields[-1][len(prefix):]
 
-            if fields[0] == 'out':
+            if fields[0] in ('out', 'cout', 'lout'):
                 self.tile.read([prefix + fields[0]] + fields[1:])
             elif fields[-1].startswith('in_'):
                 self.tile.read(fields[:-1] + [prefix + fields[-1]])

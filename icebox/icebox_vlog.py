@@ -18,6 +18,9 @@
 import icebox
 import getopt, sys, re
 
+import os
+icebox_path = os.path.dirname(icebox.__file__)
+
 strip_comments = False
 strip_interconn = False
 lookup_pins = False
@@ -350,6 +353,7 @@ for segs in sorted(ic.group_segments(extra_connections=extra_connections, extra_
         if re.match(r"ram/RDATA_", s[2]): count_drivers.append(s[2])
         if re.match(r"io_./D_IN_", s[2]): count_drivers.append(s[2])
         if re.match(r"lutff_./out", s[2]): count_drivers.append(s[2])
+        if re.match(r"lutff_./cout", s[2]): count_drivers.append(s[2])
         if re.match(r"lutff_./lout", s[2]): count_drivers.append(s[2])
 
     if len(count_drivers) != 1 and check_driver:
@@ -383,7 +387,7 @@ def seg_to_net(seg, default=None):
 
 if lookup_symbols:
     text_func.append("// Debug Symbols")
-    with open("/usr/local/share/icebox/chipdb-%s.txt" % ic.device, "r") as f:
+    with open(os.path.join(icebox_path, "chipdb-%s.txt" % ic.device), "r") as f:
         current_net = -1
         exported_names = dict()
         for line in f:
