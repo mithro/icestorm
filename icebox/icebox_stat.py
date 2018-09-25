@@ -129,6 +129,8 @@ for pllid in ic.pll_list():
 if verbose:
     print()
 
+print("cells: %4d" % len(dff_locations.union(lut_locations).union(carry_locations)))
+
 print("DFFs:   %4d" % len(dff_locations))
 print("LUTs:   %4d" % len(lut_locations))
 print("CARRYs: %4d" % len(carry_locations))
